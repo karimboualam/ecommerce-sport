@@ -5,5 +5,10 @@ function Hello() {
     <div>Hello</div>
   )
 }
+function welcome() {
+  return (
+    <div>welcome</div>
+  )
+}
 
 export default Hello
