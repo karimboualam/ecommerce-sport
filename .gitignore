@@ -1,0 +1,30 @@
+# === FRONTEND (React + Vite) ===
+frontend-react/node_modules/
+frontend-react/dist/
+frontend-react/.env
+frontend-react/.vite/
+
+# === BACKEND USER ===
+backend-user/target/
+backend-user/.classpath
+backend-user/.project
+backend-user/.settings/
+
+# === BACKEND ADMIN ===
+backend-admin/target/
+backend-admin/.classpath
+backend-admin/.project
+backend-admin/.settings/
+
+# === GENERAL ===
+*.log
+*.class
+*.jar
+*.war
+
+# === IDE / SYSTEM ===
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
