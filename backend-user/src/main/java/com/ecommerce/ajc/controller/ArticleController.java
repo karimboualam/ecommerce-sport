@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/articles")
+//@RestController
+//@RequestMapping("/api/articles")
 public class ArticleController {
-
+/*
     private final ArticleService articleService;
 
     public ArticleController(ArticleService articleService) {
@@ -83,5 +83,5 @@ public class ArticleController {
     @GetMapping("/featured")
     public ResponseEntity<List<Article>> featured() {
         return ResponseEntity.ok(articleService.getFeaturedArticles());
-    }
+    }*/
 }

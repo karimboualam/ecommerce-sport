@@ -2,6 +2,7 @@ package com.ecommerce.ajc.controller;
 
 import com.ecommerce.ajc.model.Article;
 import com.ecommerce.ajc.service.ArticleService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,17 @@ public class ArticleAdminController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')") // 🔐 Sécurité supplémentaire côté méthode
     public Article createArticle(@RequestBody Article article) {
+
         return articleService.saveArticle(article);
     }
+    @PostMapping("/bulk")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Article> createMultipleArticles(@RequestBody List<Article> articles) {
+        return articleService.saveAllArticles(articles);
+    }
+
 
     @PutMapping("/{id}")
     public Article updateArticle(@PathVariable Long id, @RequestBody Article article) {
@@ -28,12 +37,14 @@ public class ArticleAdminController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteArticle(@PathVariable Long id) {
+    public void deleteArticle(@PathVariable Integer  id) {
         articleService.deleteArticle(id);
     }
 
     @GetMapping("/exists/{id}")
-    public boolean articleExists(@PathVariable Long id) {
+    public boolean articleExists(@PathVariable Integer  id) {
         return articleService.articleExists(id);
     }
+
+
 }

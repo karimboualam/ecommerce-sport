@@ -1,11 +1,11 @@
-// ✅ 3. JwtTokenUtil.java
 package com.ecommerce.ajc.security;
 
 import com.ecommerce.ajc.model.Utilisateur;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,35 +19,32 @@ public class JwtTokenUtil {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    //private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
-
     @Value("${jwt.expiration}")
     private long expirationTime;
+
+    // ✅ Cette méthode centralise la génération correcte de la clé
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+    }
 
     public String generateToken(Utilisateur utilisateur) {
         return Jwts.builder()
                 .setSubject(utilisateur.getUsername())
-                .claim("role", utilisateur.getRole())
+                .claim("role", utilisateur.getRole().name())// Important: le nom du claim doit correspondre à ce que Spring Security attend
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-             //   .signWith(SignatureAlgorithm.HS512, secretKey)
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS512)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)  // ✅ clé uniforme
                 .compact();
     }
 
-   /* public String extractUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey)
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())  // ✅ même clé utilisée
+                .build()
                 .parseClaimsJws(token)
-                .getBody().getSubject();
-    } */
-   public String extractUsername(String token) {
-       return Jwts.parser()
-               .setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)))  // ✅ clé bien décodée
-               .parseClaimsJws(token)
-               .getBody()
-               .getSubject();
-   }
+                .getBody()
+                .getSubject();
+    }
 
     public boolean validateToken(String token, Utilisateur utilisateur) {
         String username = extractUsername(token);
@@ -58,17 +55,30 @@ public class JwtTokenUtil {
         return extractExpiration(token).before(new Date());
     }
 
-   /* private Date extractExpiration(String token) {
-        return Jwts.parser().setSigningKey(secretKey)
+    private Date extractExpiration(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())  // ✅ même clé utilisée
+                .build()
                 .parseClaimsJws(token)
-                .getBody().getExpiration();
+                .getBody()
+                .getExpiration();
+    }
+  /*  public String extractRole(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("roles", String.class);
     }*/
-   private Date extractExpiration(String token) {
-       return Jwts.parser()
-               .setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)))
-               .parseClaimsJws(token)
-               .getBody()
-               .getExpiration();
-   }
+
+    public Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
 
 }
