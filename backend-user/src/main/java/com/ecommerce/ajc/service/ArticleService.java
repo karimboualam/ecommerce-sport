@@ -2,61 +2,28 @@
 package com.ecommerce.ajc.service;
 
 import com.ecommerce.ajc.model.Article;
-import com.ecommerce.ajc.repository.ArticleRepository;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-public class ArticleService {
+public interface ArticleService {
 
-    private final ArticleRepository articleRepository;
+    List<Article> getAllArticles();
 
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
+    Article getArticleById(Integer  id);
 
-    public List<Article> getAllArticles() {
-        return articleRepository.findAll();
-    }
+    Article saveArticle(Article article);
 
-    public Article getArticleById(Long id) {
-        return articleRepository.findById(id.intValue()).orElse(null);
-    }
+    void deleteArticle(Integer  id);
 
-    public Article saveArticle(Article article) {
-        return articleRepository.save(article);
-    }
+    boolean articleExists(Integer  id);
 
-    public void deleteArticle(Long id) {
-        articleRepository.deleteById(id.intValue());
-    }
+    List<Article> saveAllArticles(List<Article> articles);
 
-    public boolean articleExists(Long id) {
-        return articleRepository.existsById(id.intValue());
-    }
+    List<Article> findByCategorie(String categorie);
 
-    public List<Article> findByCategorie(String categorie) {
-        return articleRepository.findByCategorie(categorie);
-    }
+    List<Article> searchArticles(String keyword);
 
-    public List<Article> searchArticles(String keyword) {
-        return articleRepository.searchByKeyword(keyword);
-    }
+    List<Article> filterArticles(Double minPrice, Double maxPrice, String marque, String couleur);
 
-    public List<Article> filterArticles(Double minPrice, Double maxPrice, String marque, String couleur) {
-        return articleRepository.findAll().stream()
-                .filter(a -> minPrice == null || a.getPrix() >= minPrice)
-                .filter(a -> maxPrice == null || a.getPrix() <= maxPrice)
-                .filter(a -> marque == null || a.getMarque().equalsIgnoreCase(marque))
-                .filter(a -> couleur == null || a.getCouleur().equalsIgnoreCase(couleur))
-                .collect(Collectors.toList());
-    }
-
-    public List<Article> getFeaturedArticles() {
-        return articleRepository.findAll().stream()
-                .sorted((a1, a2) -> Double.compare(a2.getPrix(), a1.getPrix()))
-                .limit(5)
-                .collect(Collectors.toList());
-    }
+    List<Article> getFeaturedArticles();
 }

@@ -6,11 +6,17 @@ import com.ecommerce.ajc.repository.UtilisateurRepository;
 import com.ecommerce.ajc.security.JwtTokenUtil;
 import com.ecommerce.ajc.security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 @Service
-public class UtilisateurServiceImpl implements UtilisateurService {
+public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsService {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -36,6 +42,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public String login(Utilisateur utilisateur) {
         Utilisateur existingUser = utilisateurRepository.findByEmail(utilisateur.getEmail());
         if (existingUser != null && passwordEncoder.matches(utilisateur.getPassword(), existingUser.getPassword())) {
+            System.out.println("🛡️ ROLE UTILISATEUR CONNECTÉ : " + existingUser.getRole());
             return jwtTokenUtil.generateToken(existingUser);
         }
         throw new RuntimeException("Invalid credentials");
@@ -59,5 +66,20 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public void deleteUtilisateur(Long id) {
         utilisateurRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Utilisateur user = utilisateurRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email);
+        }
+
+        // ✅ le rôle doit être converti en authority avec le préfixe ROLE_
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))
+        );
     }
 }
