@@ -32,10 +32,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
+
+
                 String username = jwtTokenUtil.extractUsername(token);
                 Claims claims = jwtTokenUtil.extractAllClaims(token);
                 String role = claims.get("role", String.class); // 🔐 lecture directe du rôle
                 System.out.println("🔐 CLAIM ROLE : " + role); // pour afficher le role
+
+                // ✅ AJOUTE LES LOGS ICI
+                System.out.println("🔐 Token reçu : " + token);
+                System.out.println("🔐 Username : " + username);
+                System.out.println("🔐 Authority injectée : " + role);
+
 
                 if (username != null && role != null) {
                     UsernamePasswordAuthenticationToken authentication =
@@ -64,4 +72,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+
 }

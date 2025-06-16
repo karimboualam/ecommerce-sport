@@ -19,12 +19,15 @@ public class ArticleClientController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasRole('CLIENT')") // 🔐 Sécurité supplémentaire côté méthode
+   @PreAuthorize("hasRole('CLIENT')") // 🔐 Sécurité supplémentaire côté méthode
+  //  @PreAuthorize("hasAuthority('ROLE_CLIENT') and !hasAuthority('ROLE_ADMIN')")
+
     public List<Article> getAllArticles() {
         return articleService.getAllArticles();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('CLIENT')")
     public Article getArticleById(@PathVariable Integer  id) {
         return articleService.getArticleById(id);
     }
@@ -50,6 +53,9 @@ public class ArticleClientController {
     }
 
     @GetMapping("/featured")
+    @PreAuthorize("hasRole('CLIENT')")
+   // @PreAuthorize("hasAuthority('ROLE_CLIENT') and !hasAuthority('ROLE_ADMIN')")
+
     public List<Article> getFeaturedArticles() {
         return articleService.getFeaturedArticles();
     }
