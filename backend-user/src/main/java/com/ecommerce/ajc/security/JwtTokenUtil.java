@@ -27,10 +27,20 @@ public class JwtTokenUtil {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
+    /*private SecretKey getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        if (keyBytes.length < 64) { // HS512 nécessite 512 bits (64 bytes)
+            throw new IllegalArgumentException("La clé doit faire 64 bytes (512 bits)");
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
+    }*/
+
     public String generateToken(Utilisateur utilisateur) {
         return Jwts.builder()
-                .setSubject(utilisateur.getUsername())
+               // .setSubject(utilisateur.getUsername())
+                .setSubject(utilisateur.getEmail())
                 .claim("role", utilisateur.getRole().name())// Important: le nom du claim doit correspondre à ce que Spring Security attend
+              //  .claim("role", "ROLE_" + utilisateur.getRole().name()) // Ajoutez ROLE_ explicitement
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)  // ✅ clé uniforme
@@ -80,5 +90,6 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
 
 }
