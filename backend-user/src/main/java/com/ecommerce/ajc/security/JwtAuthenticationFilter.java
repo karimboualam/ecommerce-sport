@@ -35,6 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String username = jwtTokenUtil.extractUsername(token);
                 Claims claims = jwtTokenUtil.extractAllClaims(token);
                 String role = claims.get("role", String.class); // 🔐 lecture directe du rôle
+                System.out.println("🔐 CLAIM ROLE : " + role); // pour afficher le role
 
                 if (username != null && role != null) {
                     UsernamePasswordAuthenticationToken authentication =

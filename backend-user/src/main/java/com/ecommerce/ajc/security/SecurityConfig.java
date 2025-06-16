@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // Permet @PreAuthorize
+//@EnableMethodSecurity(prePostEnabled = true) // Permet @PreAuthorize
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -25,9 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-             //   .antMatchers("/api/client/**").hasAnyRole("CLIENT", "ADMIN")
+            //    .antMatchers("/api/client/**").hasRole("CLIENT")
+                .antMatchers("/api/client/**").hasAnyRole( "ADMIN", "CLIENT")
+            //    .antMatchers("/api/client/**").hasAnyRole("CLIENT")
 
-                //   .antMatchers("/api/client/**").hasRole("CLIENT")
                 .anyRequest().authenticated()
                 .and()
             //    .sessionManagement().disable();

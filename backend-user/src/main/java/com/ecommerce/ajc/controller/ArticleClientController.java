@@ -3,6 +3,7 @@ package com.ecommerce.ajc.controller;
 
 import com.ecommerce.ajc.model.Article;
 import com.ecommerce.ajc.service.ArticleService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ArticleClientController {
     }
 
     @GetMapping
+//    @PreAuthorize("hasRole('CLIENT')") // 🔐 Sécurité supplémentaire côté méthode
     public List<Article> getAllArticles() {
         return articleService.getAllArticles();
     }
