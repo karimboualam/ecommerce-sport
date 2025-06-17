@@ -21,13 +21,13 @@
         <tbody>
             <c:forEach items="${articles}" var="article">
                 <tr>
-                    <td>${article.id}</td>
+                    <td>${article.reference}</td>
                     <td>${article.nom}</td>
                     <td><fmt:formatNumber value="${article.prix}" type="currency" currencySymbol="€"/></td>
                     <td>${article.stock}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/articles/edit?id=${article.id}" class="btn btn-sm btn-warning">Modifier</a>
-                        <a href="${pageContext.request.contextPath}/admin/articles/delete?id=${article.id}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
+                        <a href="${pageContext.request.contextPath}/admin/articles/edit?id=${article.reference}" class="btn btn-sm btn-warning">Modifier</a>
+                        <a href="${pageContext.request.contextPath}/admin/articles/delete?id=${article.reference}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
                     </td>
                 </tr>
             </c:forEach>

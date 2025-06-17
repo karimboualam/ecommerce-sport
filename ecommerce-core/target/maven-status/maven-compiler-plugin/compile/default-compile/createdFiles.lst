@@ -1,0 +1,11 @@
+model\Commande.class
+model\Panier.class
+repository\CommandeRepository.class
+model\Article.class
+model\Utilisateur.class
+model\PanierItem.class
+repository\ArticleRepository.class
+repository\UtilisateurRepository.class
+security\RoleEnum.class
+model\Avis.class
+model\LigneCommande.class
