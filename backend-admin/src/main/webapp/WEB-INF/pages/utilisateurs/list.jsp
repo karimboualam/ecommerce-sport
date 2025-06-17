@@ -20,8 +20,7 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Prénom</th>
-                <th>Nom</th>
+                <th>Username</th>
                 <th>Email</th>
                 <th>Rôle</th>
                 <th style="width: 15%;">Actions</th>
@@ -31,8 +30,7 @@
             <c:forEach items="${utilisateurs}" var="user">
                 <tr>
                     <td>${user.id}</td>
-                    <td>${user.prenom}</td>
-                    <td>${user.nom}</td>
+                    <td>${user.username}</td>
                     <td>${user.email}</td>
                     <td><span class="badge ${user.role == 'ROLE_ADMIN' ? 'bg-danger' : 'bg-secondary'}">${user.role}</span></td>
                     <td>

@@ -1,7 +1,7 @@
 package controller;
 
 
-import model.RoleEnum;
+import security.RoleEnum;
 import model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

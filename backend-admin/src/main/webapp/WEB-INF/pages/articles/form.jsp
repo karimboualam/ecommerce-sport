@@ -4,21 +4,21 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${empty article.id ? 'Ajouter un Article' : 'Modifier un Article'}</title>
+    <title>${empty article.reference ? 'Ajouter un Article' : 'Modifier un Article'}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
-            <h3>${empty article.id ? 'Nouvel Article' : 'Modifier l\'Article'}</h3>
+            <h3>${empty article.reference ? 'Nouvel Article' : 'Modifier l\'Article'}</h3>
         </div>
         <div class="card-body">
             <!-- Ce formulaire appelle la méthode "save" du contrôleur via une requête POST -->
             <form:form modelAttribute="article" action="${pageContext.request.contextPath}/admin/articles/save" method="post">
 
                 <!-- Champ caché pour l'ID. Crucial pour la mise à jour ! -->
-                <form:hidden path="id"/>
+                <form:hidden path="reference"/>
 
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom de l'article</label>
@@ -42,8 +42,8 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="imageUrl" class="form-label">URL de l'image</label>
-                    <form:input path="imageUrl" cssClass="form-control"/>
+                    <label for="image" class="form-label">URL de l'image</label>
+                    <form:input path="image" cssClass="form-control"/>
                 </div>
 
                 <hr/>

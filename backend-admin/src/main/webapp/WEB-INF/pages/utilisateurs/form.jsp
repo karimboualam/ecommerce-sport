@@ -19,14 +19,9 @@
                 <form:hidden path="id"/>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="prenom" class="form-label">Prénom</label>
-                        <form:input path="prenom" cssClass="form-control" />
-                        <form:errors path="prenom" cssClass="text-danger" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="nom" class="form-label">Nom</label>
-                        <form:input path="nom" cssClass="form-control" />
-                        <form:errors path="nom" cssClass="text-danger" />
+                        <label for="username" class="form-label">Username</label>
+                        <form:input path="username" cssClass="form-control" />
+                        <form:errors path="username" cssClass="text-danger" />
                     </div>
                 </div>
                 <div class="mb-3">
@@ -40,9 +35,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="motDePasse" class="form-label">Mot de passe</label>
-                        <form:password path="motDePasse" cssClass="form-control" />
-                        <form:errors path="motDePasse" cssClass="text-danger"/>
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <form:password path="password" cssClass="form-control" />
+                        <form:errors path="password" cssClass="text-danger"/>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="role" class="form-label">Rôle</label>

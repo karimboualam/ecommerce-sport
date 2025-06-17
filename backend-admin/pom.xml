@@ -38,7 +38,7 @@
 		</dependency>
 		<dependency>
 			<groupId>formation</groupId>
-			<artifactId>backend-admin-dao</artifactId>
+			<artifactId>ecommerce-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

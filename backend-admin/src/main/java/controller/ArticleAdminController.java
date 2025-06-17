@@ -37,7 +37,7 @@ public class ArticleAdminController {
     }
 
     @GetMapping("/edit")
-    public String editForm(@RequestParam Long id, Model model) {
+    public String editForm(@RequestParam Integer id, Model model) {
         articleRepository.findById(id).ifPresent(article -> {
 
             model.addAttribute("article", article);
@@ -47,7 +47,7 @@ public class ArticleAdminController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam Long id) {
+    public String delete(@RequestParam Integer id) {
         articleRepository.deleteById(id);
         return "redirect:/admin/articles";
     }
