@@ -20,16 +20,24 @@ backend-admin/.settings/
 backend-admin/logs/
 backend-admin/test-output/
 
-# === GENERAL JAVA ===
+# === GENERAL JAVA / MAVEN ===
 *.log
 *.out
 *.class
 *.jar
 *.war
+*.bak
+*.tmp
+*.swp
+*.rej
+*.orig
 dependency-reduced-pom.xml
 release.properties
 buildNumber.properties
 .spring-boot-devtools.properties
+application.properties
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
 
 # === IDE / SYSTEM ===
 .vscode/
@@ -39,15 +47,9 @@ buildNumber.properties
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-
-
-
-
-# Fichiers Eclipse à ignorer
 .metadata/
 RemoteSystemsTempFiles/
+
+# === AUTRES ===
 *.rar
-
-# Dossiers Maven à ignorer
 **/target/
-

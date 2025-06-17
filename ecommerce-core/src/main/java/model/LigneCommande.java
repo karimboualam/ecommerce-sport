@@ -1,6 +1,9 @@
 package model;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
 
 @Entity
 @Table(name = "lignes_commande")
@@ -15,6 +18,7 @@ public class LigneCommande {
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
+    @JsonBackReference
     private Commande commande;
 
     @ManyToOne

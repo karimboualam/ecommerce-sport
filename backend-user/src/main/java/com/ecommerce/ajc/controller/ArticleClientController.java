@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/client/articles")
+@PreAuthorize("hasRole('CLIENT')")
 public class ArticleClientController {
 
     private final ArticleService articleService;

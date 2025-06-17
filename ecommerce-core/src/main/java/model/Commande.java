@@ -5,6 +5,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
+
 @Entity
 @Table(name = "commandes")
 public class Commande {
@@ -23,6 +28,7 @@ public class Commande {
     private Utilisateur utilisateur;
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<LigneCommande> ligneCommandes;
 
     public Commande() {}
