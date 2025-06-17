@@ -1,7 +1,7 @@
 package com.ecommerce.ajc.service;
 
-import com.ecommerce.ajc.model.Article;
-import com.ecommerce.ajc.repository.ArticleRepository;
+import model.Article;
+import repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

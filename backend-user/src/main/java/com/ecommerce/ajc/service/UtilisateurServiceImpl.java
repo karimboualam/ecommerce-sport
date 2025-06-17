@@ -1,10 +1,10 @@
 // ✅ 15. UtilisateurService.java
 package com.ecommerce.ajc.service;
 
-import com.ecommerce.ajc.model.Utilisateur;
-import com.ecommerce.ajc.repository.UtilisateurRepository;
+import model.Utilisateur;
+import repository.UtilisateurRepository;
 import com.ecommerce.ajc.security.JwtTokenUtil;
-import com.ecommerce.ajc.security.RoleEnum;
+import security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

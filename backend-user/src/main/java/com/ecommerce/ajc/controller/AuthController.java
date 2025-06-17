@@ -2,8 +2,8 @@
 // ✅ 20. AuthController.java
 package com.ecommerce.ajc.controller;
 
-import com.ecommerce.ajc.model.Utilisateur;
-import com.ecommerce.ajc.security.RoleEnum;
+import model.Utilisateur;
+import security.RoleEnum;
 import com.ecommerce.ajc.service.UtilisateurService;
 import com.ecommerce.ajc.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;

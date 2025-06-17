@@ -1,7 +1,8 @@
 package com.ecommerce.ajc.controller;
 
 
-import com.ecommerce.ajc.model.Article;
+//import com.ecommerce.ajc.model.Article;
+import model.Article;
 import com.ecommerce.ajc.service.ArticleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

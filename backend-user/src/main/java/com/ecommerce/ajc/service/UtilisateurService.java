@@ -1,7 +1,7 @@
 //21
 package com.ecommerce.ajc.service;
 
-import com.ecommerce.ajc.model.Utilisateur;
+import model.Utilisateur;
 
 public interface UtilisateurService {
     Utilisateur register(Utilisateur utilisateur);
