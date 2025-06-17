@@ -1,7 +1,7 @@
 // ✅ 19. ArticleController.java
 package com.ecommerce.ajc.controller;
 
-import com.ecommerce.ajc.model.Article;
+import model.Article;
 import com.ecommerce.ajc.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

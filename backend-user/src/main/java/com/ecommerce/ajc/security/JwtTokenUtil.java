@@ -1,6 +1,6 @@
 package com.ecommerce.ajc.security;
 
-import com.ecommerce.ajc.model.Utilisateur;
+import model.Utilisateur;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,8 +1,8 @@
 // ✅ 17. CommandeService.java
 package com.ecommerce.ajc.service;
 
-import com.ecommerce.ajc.model.Commande;
-import com.ecommerce.ajc.repository.CommandeRepository;
+import model.Commande;
+import repository.CommandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

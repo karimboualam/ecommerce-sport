@@ -14,6 +14,9 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String prenom;
+    private String nom;
+
     private String username;
     @Column(unique = true)
     private String email;
@@ -27,12 +30,12 @@ public class Utilisateur {
     // Constructeurs
     public Utilisateur() {}
 
-    public Utilisateur(Long id, String username, String email, String password, RoleEnum role, String adresse) {
-        this.id = id;
+    public Utilisateur(String prenom, String nom, String username, String email, String password, RoleEnum role, String adresse) {
+        this.prenom = prenom;
+        this.nom = nom;
         this.username = username;
         this.email = email;
         this.password = password;
-
         this.role = role;
         this.adresse = adresse;
     }
@@ -43,6 +46,22 @@ public class Utilisateur {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getUsername() {

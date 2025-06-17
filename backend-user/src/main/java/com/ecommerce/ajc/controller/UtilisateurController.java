@@ -1,7 +1,7 @@
 // ✅ 18. UtilisateurController.java
 package com.ecommerce.ajc.controller;
 
-import com.ecommerce.ajc.model.Utilisateur;
+import model.Utilisateur;
 import com.ecommerce.ajc.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

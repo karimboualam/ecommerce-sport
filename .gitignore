@@ -9,18 +9,27 @@ backend-user/target/
 backend-user/.classpath
 backend-user/.project
 backend-user/.settings/
+backend-user/logs/
+backend-user/test-output/
 
 # === BACKEND ADMIN ===
 backend-admin/target/
 backend-admin/.classpath
 backend-admin/.project
 backend-admin/.settings/
+backend-admin/logs/
+backend-admin/test-output/
 
-# === GENERAL ===
+# === GENERAL JAVA ===
 *.log
+*.out
 *.class
 *.jar
 *.war
+dependency-reduced-pom.xml
+release.properties
+buildNumber.properties
+.spring-boot-devtools.properties
 
 # === IDE / SYSTEM ===
 .vscode/
@@ -28,3 +37,17 @@ backend-admin/.settings/
 *.iml
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+
+
+# Fichiers Eclipse à ignorer
+.metadata/
+RemoteSystemsTempFiles/
+*.rar
+
+# Dossiers Maven à ignorer
+**/target/
+

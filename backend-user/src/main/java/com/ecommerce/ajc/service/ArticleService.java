@@ -1,7 +1,7 @@
 // ✅ 16. ArticleService.java
 package com.ecommerce.ajc.service;
 
-import com.ecommerce.ajc.model.Article;
+import model.Article;
 
 import java.util.List;
 
