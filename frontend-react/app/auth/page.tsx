@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,11 +12,16 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true)
+
   const [formData, setFormData] = useState({
-    name: "",
+    prenom: "",
+    nom: "",
+    username: "",
     email: "",
     password: "",
+    adresse: "",
   })
+
   const { login, register, isLoading } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
@@ -31,13 +35,20 @@ export default function AuthPage() {
       if (isLogin) {
         success = await login(formData.email, formData.password)
       } else {
-        success = await register(formData.name, formData.email, formData.password)
+        success = await register(
+          formData.prenom,
+          formData.nom,
+          formData.username,
+          formData.email,
+          formData.password,
+          formData.adresse
+        )
       }
 
       if (success) {
         toast({
           title: isLogin ? "Connexion réussie" : "Inscription réussie",
-          description: `Bienvenue ${isLogin ? "" : formData.name}!`,
+          description: `Bienvenue ${isLogin ? "" : formData.prenom}!`,
         })
         router.push("/")
       } else {
@@ -73,17 +84,52 @@ export default function AuthPage() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
-                <div>
-                  <Label htmlFor="name">Nom complet</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required={!isLogin}
-                  />
-                </div>
+                <>
+                  <div>
+                    <Label htmlFor="prenom">Prénom</Label>
+                    <Input
+                      id="prenom"
+                      name="prenom"
+                      type="text"
+                      value={formData.prenom}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="nom">Nom</Label>
+                    <Input
+                      id="nom"
+                      name="nom"
+                      type="text"
+                      value={formData.nom}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="username">Nom d'utilisateur</Label>
+                    <Input
+                      id="username"
+                      name="username"
+                      type="text"
+                      value={formData.username}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="adresse">Adresse</Label>
+                    <Input
+                      id="adresse"
+                      name="adresse"
+                      type="text"
+                      value={formData.adresse}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </>
               )}
 
               <div>

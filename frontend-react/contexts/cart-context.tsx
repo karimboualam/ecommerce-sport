@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useReducer, type ReactNode } from "react"
+import { createContext, useContext, useReducer, useEffect, type ReactNode } from "react"
 import type { CartItem } from "@/types/product"
 import { useToast } from "@/hooks/use-toast"
 
@@ -28,17 +28,17 @@ function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case "ADD_ITEM": {
       const existingItem = state.items.find((item) => item.id === action.payload.id)
-
       if (existingItem) {
         const updatedItems = state.items.map((item) =>
-          item.id === action.payload.id ? { ...item, quantity: item.quantity + action.payload.quantity } : item,
+          item.id === action.payload.id
+            ? { ...item, quantity: item.quantity + action.payload.quantity }
+            : item,
         )
         return {
           items: updatedItems,
           total: updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
         }
       }
-
       const newItems = [...state.items, action.payload]
       return {
         items: newItems,
@@ -56,7 +56,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 
     case "UPDATE_QUANTITY": {
       const newItems = state.items
-        .map((item) => (item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item))
+        .map((item) =>
+          item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item,
+        )
         .filter((item) => item.quantity > 0)
 
       return {
@@ -76,6 +78,23 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 })
   const { toast } = useToast()
+
+  // Charger le panier depuis localStorage au démarrage
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart")
+    if (savedCart) {
+      const parsed = JSON.parse(savedCart)
+      dispatch({ type: "CLEAR_CART" }) // éviter doublon
+      parsed.items.forEach((item: CartItem) => {
+        dispatch({ type: "ADD_ITEM", payload: item })
+      })
+    }
+  }, [])
+
+  // Sauvegarder dans localStorage à chaque mise à jour
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state))
+  }, [state])
 
   const addItem = (item: CartItem) => {
     dispatch({ type: "ADD_ITEM", payload: item })

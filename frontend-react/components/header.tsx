@@ -47,7 +47,8 @@ export default function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm">
                     <User className="h-4 w-4" />
-                    <span className="hidden sm:ml-2 sm:inline">{user.name}</span>
+                    <span className="hidden sm:ml-2 sm:inline">Bonjour, {user.prenom}</span>
+
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
