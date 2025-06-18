@@ -1,4 +1,4 @@
-package controller; // Assurez-vous que le package est correct
+package controller;
 
 import model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,50 +21,69 @@ public class ArticleAdminController {
 
     @GetMapping("")
     public String list(Model model) {
+        // 1. Préparer les données pour la vue de contenu
         model.addAttribute("articles", articleRepository.findAll());
-        return "articles/list";
+
+        // 2. Préparer les données pour le layout
+        model.addAttribute("pageTitle", "Gestion des Articles");
+        model.addAttribute("contentPage", "articles/list.jsp");
+
+        // 3. Retourner le layout
+        return "layout";
     }
 
     @GetMapping({"/new", "/edit"})
     public String showForm(@RequestParam(required = false) Integer id, Model model) {
-
         Article article;
-        if (id != null) {
+        String pageTitle;
 
-            article = articleRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("ID d'article invalide:" + id));
+        if (id != null) {
+            article = articleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID invalide:" + id));
+            pageTitle = "Modifier l'Article";
         } else {
             article = new Article();
+            pageTitle = "Nouvel Article";
         }
         model.addAttribute("article", article);
 
+        // Données pour les listes déroulantes
         List<String> categories = Arrays.asList("Vêtements", "Chaussures", "Accessoires", "Électronique");
         List<String> types = Arrays.asList("T-shirt", "Pantalon", "Baskets", "Montre", "Smartphone");
-
         model.addAttribute("categories", categories);
         model.addAttribute("types", types);
 
-        return "articles/form";
+        // Préparer les données pour le layout
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("contentPage", "articles/form.jsp");
+
+        return "layout";
     }
 
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("article") Article article, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            // En cas d'erreur, il faut re-fournir TOUTES les données nécessaires à la vue et au layout
+
+            // Données pour le formulaire
             List<String> categories = Arrays.asList("Vêtements", "Chaussures", "Accessoires", "Électronique");
             List<String> types = Arrays.asList("T-shirt", "Pantalon", "Baskets", "Montre", "Smartphone");
             model.addAttribute("categories", categories);
             model.addAttribute("types", types);
 
-            return "articles/form";
+            // Données pour le layout
+            model.addAttribute("pageTitle", article.getReference() == 0 ? "Nouvel Article" : "Modifier l'Article");
+            model.addAttribute("contentPage", "articles/form.jsp");
+
+            return "layout"; // On retourne au layout, qui affichera le formulaire avec les erreurs
         }
+
         articleRepository.save(article);
-        return "redirect:/admin/articles";
+        return "redirect:/admin/articles"; // La redirection ne change pas
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam Integer id) {
         articleRepository.deleteById(id);
-        return "redirect:/admin/articles";
+        return "redirect:/admin/articles"; // La redirection ne change pas
     }
-
 }
