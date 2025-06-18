@@ -19,6 +19,7 @@ backend-admin/.project
 backend-admin/.settings/
 backend-admin/logs/
 backend-admin/test-output/
+ecommerce-core/target/
 
 # === GENERAL JAVA / MAVEN ===
 *.log

@@ -12,7 +12,7 @@
 
 	<mvc:annotation-driven validator="validator"></mvc:annotation-driven>
  
-	<context:component-scan base-package="controller,service"></context:component-scan>
+	<context:component-scan base-package="controller,service,config"></context:component-scan>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,6 +32,11 @@
                 <property name="cookieName" value="lang"></property>
                 <property name="defaultLocale" value="fr"></property>
         </bean>
+	<import resource="classpath:applicationContext.xml"/>
+
+
+
+
 
 
 </beans>

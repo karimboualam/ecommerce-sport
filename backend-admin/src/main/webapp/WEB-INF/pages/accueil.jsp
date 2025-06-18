@@ -1,71 +1,130 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Tableau de Bord - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <style>
-        .card-link {
-            text-decoration: none;
-            color: inherit;
+        .stat-card .card-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .card-link .card {
-            transition: transform .2s, box-shadow .2s;
-        }
-        .card-link:hover .card {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0,0,0,.1);
+        .stat-card .stat-icon {
+            font-size: 3rem;
+            opacity: 0.3;
         }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <div class="px-4 py-5 my-5 text-center">
-        <h1 class="display-5 fw-bold">Tableau de Bord Administrateur</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Bienvenue dans l'interface de gestion de votre site e-commerce. Sélectionnez une section ci-dessous pour commencer.</p>
+<div class="container mt-4">
+    <!-- Message de bienvenue -->
+    <div class="mb-4">
+        <h1 class="h2">Tableau de Bord</h1>
+        <c:if test="${not empty utilisateurConnecte}">
+            <p class="text-muted">
+                Bienvenue, <strong><c:out value="${utilisateurConnecte.prenom}"/> <c:out value="${utilisateurConnecte.nom}"/></strong> ! Voici un aperçu de l'activité.
+            </p>
+        </c:if>
+    </div>
+
+    <!-- Ligne des cartes de statistiques -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title text-muted">Total Clients</h5>
+                        <p class="card-text fs-2 fw-bold">${totalClients}</p>
+                    </div>
+                    <i class="bi bi-people-fill stat-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title text-muted">Total Commandes</h5>
+                        <p class="card-text fs-2 fw-bold">${totalCommandes}</p>
+                    </div>
+                    <i class="bi bi-box-seam-fill stat-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title text-muted">Total Articles</h5>
+                        <p class="card-text fs-2 fw-bold">${totalArticles}</p>
+                    </div>
+                    <i class="bi bi-grid-fill stat-icon"></i>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row text-center">
-        <!-- Carte pour la gestion des Articles -->
-        <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/admin/articles" class="card-link">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Gestion des Articles</h5>
-                        <p class="card-text">Ajouter, modifier ou supprimer les produits du catalogue.</p>
-                    </div>
-                </div>
-            </a>
+    <!-- Section des commandes en attente -->
+    <div class="card shadow-sm mt-5">
+        <div class="card-header">
+            <h3 class="h4 mb-0">Dernières Commandes en Attente de Traitement</h3>
         </div>
+        <div class="card-body">
+            <table id="pendingOrdersTable" class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID Commande</th>
+                        <th>Client</th>
+                        <th>Montant</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${commandesEnAttente}" var="commande">
+                        <tr>
+                            <td class="fw-bold">#${commande.id}</td>
+                            <td>${commande.utilisateur.username}</td>
 
-        <!-- Carte pour la gestion des Utilisateurs -->
-        <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/admin/utilisateurs" class="card-link">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Gestion des Utilisateurs</h5>
-                        <p class="card-text">Consulter et gérer les comptes clients et administrateurs.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Carte pour la gestion des Commandes -->
-        <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/admin/commandes" class="card-link">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Gestion des Commandes</h5>
-                        <p class="card-text">Suivre et mettre à jour le statut des commandes passées.</p>
-                    </div>
-                </div>
-            </a>
+                            <td>
+                                <fmt:formatNumber type="currency" currencySymbol="€">
+                                    ${commande.montant}
+                                </fmt:formatNumber>
+                            </td>
+                            <td class="text-center">
+                                <a href="${pageContext.request.contextPath}/admin/commandes/details?id=${commande.id}" class="btn btn-sm btn-outline-primary">
+                                    Voir le détail
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<!-- Scripts JS -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#pendingOrdersTable').DataTable({
+            "language": { "url": "https://cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json" },
+            "order": [[ 2, "desc" ]], // Trie par défaut par la colonne Date (index 2), du plus récent au plus ancien
+            "pageLength": 5,
+            "lengthMenu": [ [5, 10, 25], [5, 10, 25] ]
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -118,4 +118,17 @@ public class Utilisateur {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", prenom='" + prenom + '\'' +
+                ", nom='" + nom + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", adresse='" + adresse + '\'' +
+                '}';
+    }
 }
