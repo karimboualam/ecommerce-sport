@@ -36,11 +36,14 @@ public class AccueilAdminController {
         model.addAttribute("totalCommandes", totalCommandes);
         model.addAttribute("totalClients", totalClients);
 
-        // --- 4. Récupérer les commandes "en attente" (ou le statut que vous préférez) ---
-        // Exemples de statuts: "EN_ATTENTE", "EN_COURS", "A_TRAITER"
+
         model.addAttribute("commandesEnAttente", commandeRepository.findByStatus("EN_ATTENTE"));
 
-        return "accueil";
+        model.addAttribute("pageTitle", "Tableau de Bord");
+
+        model.addAttribute("contentPage", "accueil.jsp");
+
+        return "layout";
     }
     /*@GetMapping("/")
 public String showDashboard(Model model, Authentication authentication) {
