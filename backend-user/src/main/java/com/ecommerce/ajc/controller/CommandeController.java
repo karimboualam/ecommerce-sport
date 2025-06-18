@@ -66,10 +66,46 @@ public class CommandeController {
 
 
 
-    @GetMapping
+    /*@GetMapping
     public List<Commande> mesCommandes(@AuthenticationPrincipal UserDetails userDetails) {
         return commandeService.getCommandesByEmail(userDetails.getUsername());
+    } */
+
+    /*@GetMapping("/commandes")
+    @PreAuthorize("hasRole('CLIENT')")
+    public List<Commande> mesCommandes(Authentication authentication) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails)) {
+            throw new RuntimeException("Utilisateur non authentifié");
+        }
+
+        String email = ((UserDetails) authentication.getPrincipal()).getUsername();
+
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
+        if (utilisateur == null) {
+            throw new RuntimeException("Utilisateur non trouvé");
+        }
+
+        return commandeRepository.findByUtilisateur(utilisateur);
+    }*/
+    @GetMapping
+    public List<Commande> mesCommandes(Authentication authentication) {
+        String email;
+
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            email = ((UserDetails) authentication.getPrincipal()).getUsername();
+        } else {
+            email = authentication.getName(); // fallback
+        }
+
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
+        if (utilisateur == null) {
+            throw new RuntimeException("Utilisateur non trouvé");
+        }
+
+        return commandeRepository.findByUtilisateur(utilisateur);
     }
+
+
 
     @GetMapping("/{id}")
     public Commande getCommande(@PathVariable Long id) {
