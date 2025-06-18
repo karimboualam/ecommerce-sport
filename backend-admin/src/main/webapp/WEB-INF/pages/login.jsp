@@ -11,20 +11,14 @@
     <div class="row justify-content-center" style="margin-top: 150px;">
         <div class="col-md-4">
             <div class="card shadow">
-                <div class="card-body">
+                <div class="card-body p-4">
                     <h3 class="card-title text-center mb-4">Accès Administrateur</h3>
-
-                    <c:if test="${not empty param.error}">
-                        <div class="alert alert-danger">Pseudo ou mot de passe incorrect.</div>
-                    </c:if>
-                    <c:if test="${not empty param.logout}">
-                        <div class="alert alert-success">Vous avez été déconnecté.</div>
-                    </c:if>
-
+                    <c:if test="${param.error != null}"><div class="alert alert-danger">Email ou mot de passe incorrect.</div></c:if>
+                    <c:if test="${param.logout != null}"><div class="alert alert-success">Vous avez été déconnecté.</div></c:if>
                     <form action="${pageContext.request.contextPath}/login" method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Pseudo</label>
-                            <input type="text" id="username" name="username" class="form-control" required autofocus>
+                            <label for="email" class="form-label">Adresse Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required autofocus>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe</label>

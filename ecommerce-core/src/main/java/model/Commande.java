@@ -1,14 +1,11 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
-
 
 @Entity
 @Table(name = "commandes")

@@ -1,6 +1,5 @@
 package controller;
 
-
 import security.RoleEnum;
 import model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import repository.UtilisateurRepository;
+import service.UtilisateurService;
 
 import javax.validation.Valid;
 
@@ -17,18 +16,18 @@ import javax.validation.Valid;
 public class UtilisateurAdminController {
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private UtilisateurService utilisateurService;
 
     @GetMapping("")
     public String list(Model model) {
-        model.addAttribute("utilisateurs", utilisateurRepository.findAll());
+        model.addAttribute("utilisateurs", utilisateurService.findAll());
         return "utilisateurs/list";
     }
 
     @GetMapping("/form")
     public String form(Model model, @RequestParam(required = false) Long id) {
         if (id != null) {
-            utilisateurRepository.findById(id).ifPresent(user -> model.addAttribute("utilisateur", user));
+            utilisateurService.findById(id).ifPresent(user -> model.addAttribute("utilisateur", user));
         } else {
             model.addAttribute("utilisateur", new Utilisateur());
         }
@@ -42,13 +41,13 @@ public class UtilisateurAdminController {
             model.addAttribute("roles", RoleEnum.values());
             return "utilisateurs/form";
         }
-        utilisateurRepository.save(utilisateur);
+        utilisateurService.save(utilisateur);
         return "redirect:/admin/utilisateurs";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam Long id) {
-        utilisateurRepository.deleteById(id);
+        utilisateurService.deleteById(id);
         return "redirect:/admin/utilisateurs";
     }
 }

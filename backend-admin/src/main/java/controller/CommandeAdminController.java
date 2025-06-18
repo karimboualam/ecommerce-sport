@@ -24,7 +24,7 @@ public class CommandeAdminController {
 
     @GetMapping("/details")
     public String details(Model model, @RequestParam Long id) {
-        commandeService.findById(id).ifPresent(commande -> {
+        commandeService.findByIdWithLignes(id).ifPresent(commande -> { // <-- Modifié
             model.addAttribute("commande", commande);
             model.addAttribute("statuts", STATUTS_POSSIBLES);
         });
