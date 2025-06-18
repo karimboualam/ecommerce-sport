@@ -1,5 +1,5 @@
 // A SUPPRIMER
-// package com.ecommerce.ajc.controller;
+package com.ecommerce.ajc.controller;
 
 import model.Article;
 import com.ecommerce.ajc.service.ArticleService;
