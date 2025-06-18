@@ -1,5 +1,4 @@
 
-// ✅ 20. AuthController.java
 package com.ecommerce.ajc.controller;
 
 import model.Utilisateur;

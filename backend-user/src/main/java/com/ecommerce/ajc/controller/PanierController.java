@@ -32,7 +32,9 @@ public class PanierController {
                       @RequestParam int articleId,
                       @RequestParam int quantite) {
         Utilisateur user = jwtTokenUtil.getUserFromToken(token, utilisateurRepository);
-        Article article = articleRepository.findById(articleId).orElseThrow();
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new RuntimeException("Article non trouvé"));
+
         return panierService.addToPanier(user, article, quantite);
     }
 
@@ -41,10 +43,26 @@ public class PanierController {
         Utilisateur user = jwtTokenUtil.getUserFromToken(token, utilisateurRepository);
         return panierService.getPanier(user);
     }
+    @PutMapping("/update")
+    public Panier update(@RequestHeader("Authorization") String token,
+                         @RequestParam Long itemId,
+                         @RequestParam int quantite) {
+        Utilisateur user = jwtTokenUtil.getUserFromToken(token, utilisateurRepository);
+        return panierService.updateQuantite(user, itemId, quantite);
+    }
 
     @DeleteMapping("/remove/{itemId}")
     public void remove(@RequestHeader("Authorization") String token, @PathVariable Long itemId) {
         Utilisateur user = jwtTokenUtil.getUserFromToken(token, utilisateurRepository);
         panierService.removeFromPanier(user, itemId);
     }
+
+    @PostMapping("/promo")
+    public Panier applyPromo(@RequestHeader("Authorization") String token,
+                             @RequestParam String code) {
+        Utilisateur user = jwtTokenUtil.getUserFromToken(token, utilisateurRepository);
+        return panierService.applyPromoCode(user, code);
+    }
+
+
 }

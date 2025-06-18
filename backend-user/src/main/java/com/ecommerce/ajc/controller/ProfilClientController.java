@@ -3,7 +3,7 @@ package com.ecommerce.ajc.controller;
 import com.ecommerce.ajc.service.UtilisateurService;
 import model.Utilisateur;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +18,27 @@ public class ProfilClientController {
         this.utilisateurService = utilisateurService;
     }
 
+    private String getCurrentEmail() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            return principal.toString();
+        }
+    }
+
     @GetMapping
-    public Utilisateur getProfil(@AuthenticationPrincipal UserDetails userDetails) {
-        return utilisateurService.findByUsername(userDetails.getUsername());
+    public Utilisateur getProfil() {
+        return utilisateurService.findByEmail(getCurrentEmail());
     }
 
     @PutMapping
-    public Utilisateur updateProfil(@AuthenticationPrincipal UserDetails userDetails,
-                                    @RequestBody Utilisateur updated) {
-        return utilisateurService.updateUser(userDetails.getUsername(), updated);
+    public Utilisateur updateProfil(@RequestBody Utilisateur updated) {
+        return utilisateurService.updateUserByEmail(getCurrentEmail(), updated);
     }
 
     @DeleteMapping
-    public void deleteProfil(@AuthenticationPrincipal UserDetails userDetails) {
-        utilisateurService.deleteByUsername(userDetails.getUsername());
+    public void deleteProfil() {
+        utilisateurService.deleteByEmail(getCurrentEmail());
     }
 }

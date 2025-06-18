@@ -1,4 +1,4 @@
-// ✅ 18. UtilisateurController.java
+// A SUPPRIMER
 package com.ecommerce.ajc.controller;
 
 import model.Utilisateur;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/utilisateurs")
-public class UtilisateurController {
+public class UtilisateurController {/*
 
     @Autowired
     private UtilisateurService utilisateurService;
@@ -29,5 +29,5 @@ public class UtilisateurController {
     @DeleteMapping("/{id}")
     public void deleteCompte(@PathVariable Long id) {
         utilisateurService.deleteUtilisateur(id);
-    }
+    }*/
 }
