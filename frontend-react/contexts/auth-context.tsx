@@ -1,81 +1,126 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode, useEffect } from "react"
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 
 interface User {
   id: number
-  name: string
+  prenom: string
+  nom: string
   email: string
+  username: string
+  role: string
+  adresse: string
 }
 
 interface AuthContextType {
   user: User | null
-  login: (email: string, password: string) => Promise<boolean>
-  register: (name: string, email: string, password: string) => Promise<boolean>
-  logout: () => void
+  token: string | null
   isLoading: boolean
+  login: (email: string, password: string) => Promise<boolean>
+  register: (
+    prenom: string,
+    nom: string,
+    username: string,
+    email: string,
+    password: string,
+    adresse: string
+  ) => Promise<boolean>
+  logout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
+  const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate checking for existing session
     const savedUser = localStorage.getItem("user")
-    if (savedUser) {
+    const savedToken = localStorage.getItem("token")
+    if (savedUser && savedToken) {
       setUser(JSON.parse(savedUser))
+      setToken(savedToken)
     }
     setIsLoading(false)
   }, [])
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true)
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+      if (!res.ok) throw new Error("Login failed")
 
-    // Mock authentication - in real app, this would call your API
-    if (email === "demo@sportzone.com" && password === "demo123") {
-      const userData = { id: 1, name: "Demo User", email }
+      const jwt = await res.text()
+      localStorage.setItem("token", jwt)
+      setToken(jwt)
+
+      const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/client/profil`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+
+      const userData = await userRes.json()
       setUser(userData)
       localStorage.setItem("user", JSON.stringify(userData))
-      setIsLoading(false)
-      return true
-    }
 
-    setIsLoading(false)
-    return false
+      return true
+    } catch (err) {
+      console.error(err)
+      return false
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+  const register = async (
+    prenom: string,
+    nom: string,
+    username: string,
+    email: string,
+    password: string,
+    adresse: string
+  ): Promise<boolean> => {
     setIsLoading(true)
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prenom, nom, username, email, password, adresse }),
+      })
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    // Mock registration
-    const userData = { id: Date.now(), name, email }
-    setUser(userData)
-    localStorage.setItem("user", JSON.stringify(userData))
-    setIsLoading(false)
-    return true
+      if (!res.ok) throw new Error("Register failed")
+      return true
+    } catch (err) {
+      console.error(err)
+      return false
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const logout = () => {
-    setUser(null)
+    localStorage.removeItem("token")
     localStorage.removeItem("user")
+    setUser(null)
+    setToken(null)
   }
 
-  return <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, token, isLoading, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth() {
   const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
-  }
+  if (!context) throw new Error("useAuth must be used within AuthProvider")
   return context
 }

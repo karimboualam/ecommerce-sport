@@ -147,4 +147,18 @@ export const products = [
     stock: 12,
     colors: ["Rouge/Noir", "Bleu/Blanc"],
   },
+
+    {
+    id: 11,
+    name: "Raquette de Tennis Wilson",
+    description: "Raquette de tennis professionnelle avec cordage haute qualité. Idéale pour joueurs intermédiaires.",
+    price: 129.99,
+    image: "/images/tennis-equipment.jpg",
+    category: "tennis",
+    brand: "Wilson",
+    rating: 4.4,
+    reviews: 134,
+    stock: 12,
+    colors: ["Rouge/Noir", "Bleu/Blanc"],
+  },
 ]
