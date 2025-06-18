@@ -21,7 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .cors() // Active CORS
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
                 // Autorise Swagger
                 .antMatchers(

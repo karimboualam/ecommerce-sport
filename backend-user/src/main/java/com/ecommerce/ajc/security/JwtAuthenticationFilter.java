@@ -5,6 +5,7 @@ import model.Utilisateur;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,9 +22,12 @@ import java.util.Collections;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtil jwtTokenUtil;
+    private final MyUserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtTokenUtil jwtTokenUtil) {
+    public JwtAuthenticationFilter(JwtTokenUtil jwtTokenUtil,  MyUserDetailsService userDetailsService) {
         this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
+
     }
 
     @Override
@@ -40,17 +44,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Claims claims = jwtTokenUtil.extractAllClaims(token);
                 String role = claims.get("role", String.class); // 🔐 lecture directe du rôle
                 System.out.println("🔐 CLAIM ROLE : " + role); // pour afficher le role
+               /* if (!role.startsWith("ROLE_")) {
+                    role = "ROLE_" + role;
+                }*/
 
                 // ✅ AJOUTE LES LOGS ICI
                 System.out.println("🔐 Token reçu : " + token);
                 System.out.println("🔐 Username : " + username);
                 System.out.println("🔐 Authority injectée : " + role);
 
+        //     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (username != null && role != null) {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
-                                    username,
+                                  username,
+                               //     userDetails,
                                     null,
                                     Collections.singletonList(new SimpleGrantedAuthority(role)) // 👈 ex: ROLE_ADMIN
                             );
