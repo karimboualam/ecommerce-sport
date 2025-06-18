@@ -1,12 +1,12 @@
-# 🎯 Backend - API Utilisateur (E-commerce Sport)
+#  Backend - API Utilisateur (E-commerce Sport)
 
 Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de l'application e-commerce sport. Il est basé sur **Spring Boot**, **Spring Security (JWT)** et **Spring Data JPA**.
 
 ---
 
-## 📦 Fonctionnalités couvertes
+##  Fonctionnalités couvertes
 
-### 🔐 AUTHENTIFICATION (`/api/auth`)
+###  AUTHENTIFICATION (`/api/auth`)
 | Méthode | Endpoint           | Description                     |
 |--------:|--------------------|---------------------------------|
 | POST    | `/register`        | Inscription d’un utilisateur    |
@@ -14,7 +14,7 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-### 👤 PROFIL CLIENT (`/api/client/profil`)
+###  PROFIL CLIENT (`/api/client/profil`)
 | Méthode | Endpoint           | Description                            |
 |--------:|--------------------|----------------------------------------|
 | GET     | `/profil`          | Récupérer les infos de l'utilisateur   |
@@ -23,7 +23,7 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-### 🛒 PANIER CLIENT (`/api/client/panier`)
+###  PANIER CLIENT (`/api/client/panier`)
 | Méthode | Endpoint                | Description                                   |
 |--------:|-------------------------|-----------------------------------------------|
 | POST    | `/panier/add`           | Ajouter un article au panier                 |
@@ -34,7 +34,7 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-### 📦 COMMANDES CLIENT (`/api/client/commandes`)
+###  COMMANDES CLIENT (`/api/client/commandes`)
 | Méthode | Endpoint                 | Description                              |
 |--------:|--------------------------|------------------------------------------|
 | POST    | `/commandes`             | Passer une commande à partir du panier   |
@@ -43,7 +43,7 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-### 🧾 ARTICLES - CLIENT (`/api/client/articles`)
+###  ARTICLES - CLIENT (`/api/client/articles`)
 | Méthode | Endpoint                        | Description                               |
 |--------:|----------------------------------|-------------------------------------------|
 | GET     | `/articles`                     | Liste de tous les articles                |
@@ -55,7 +55,7 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-## 🛡️ Sécurité
+##  Sécurité
 
 - Basée sur **JWT** (`Authorization: Bearer <token>`)
 - Filtrage des rôles avec `@PreAuthorize`
@@ -63,22 +63,22 @@ Ce module gère toutes les fonctionnalités REST accessibles aux **clients** de 
 
 ---
 
-## 🧰 Configuration Swagger
+##  Configuration Swagger
 
 - Accessible via : `http://localhost:8080/swagger-ui.html`
 - Auto-documenté avec Springdoc OpenAPI (`springdoc-openapi-ui`)
 
 ---
 
-## 🧪 Tests API
+##  Tests API
 
 Tu peux tester tous les endpoints via :
 - **Swagger**
-- **Postman** : n’oublie pas d’ajouter l’en-tête `Authorization: Bearer <votre_token_jwt>`
+- **Postman** : `Authorization: Bearer <token_jwt>`
 
 ---
 
-## 📂 Structure interne
+##  Structure interne
 
 backend-user/
 ├── controller/ → Tous les contrôleurs REST
@@ -88,5 +88,7 @@ backend-user/
 ├── resources/ → application.properties, etc.
 
 
-Auteur
+---
+
+## Auteur
 Projet réalisé par Karim Boualam – Formation AJC 2025
