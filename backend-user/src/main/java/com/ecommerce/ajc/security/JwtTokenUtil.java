@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import repository.UtilisateurRepository;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -90,6 +91,9 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
+    public Utilisateur getUserFromToken(String token, UtilisateurRepository utilisateurRepository) {
+        String email = extractUsername(token.replace("Bearer ", ""));
+        return utilisateurRepository.findByEmail(email);
+    }
 
 }

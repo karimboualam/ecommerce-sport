@@ -34,31 +34,6 @@ public class CommandeController {
     @Autowired
     CommandeRepository commandeRepository;
 
-  /*  @PostMapping
-    public Commande passerCommande(@RequestBody Commande commande) {
-        return commandeService.createCommande(commande);
-    }*/
-/*  @PostMapping
-  @PreAuthorize("hasRole('CLIENT')")
-  public Commande passerCommande(@RequestBody Commande commande,
-                                 @AuthenticationPrincipal UserDetails userDetails) {
-      return commandeService.createCommande(commande, userDetails.getUsername());
-  } */ /*
-  @PostMapping
-  @PreAuthorize("hasRole('CLIENT')")
-  public Commande passerCommande(@RequestBody Commande commande, Principal principal) {
-      String email = principal.getName(); // ✅ sécurisé
-      Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
-
-      commande.setUtilisateur(utilisateur);
-      commande.setDate(new Date());
-
-      for (LigneCommande ligne : commande.getLigneCommandes()) {
-          ligne.setCommande(commande);
-      }
-
-      return commandeRepository.save(commande);
-  }*/
 
     @PostMapping
     @PreAuthorize("hasRole('CLIENT')")

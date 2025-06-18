@@ -16,7 +16,7 @@ public class Utilisateur {
 
     private String prenom;
     private String nom;
-
+    @Column(unique = true)
     private String username;
     @Column(unique = true)
     private String email;

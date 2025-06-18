@@ -22,28 +22,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article getArticleById(Integer  id) {
+    public Article getArticleById(Integer id) {
         return articleRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Article saveArticle(Article article) {
-        return articleRepository.save(article);
-    }
-
-    @Override
-    public void deleteArticle(Integer  id) {
-        articleRepository.deleteById(id);
-    }
-
-    @Override
-    public boolean articleExists(Integer  id) {
-        return articleRepository.existsById(id);
-    }
-
-    @Override
-    public List<Article> saveAllArticles(List<Article> articles) {
-        return articleRepository.saveAll(articles);
     }
 
     @Override

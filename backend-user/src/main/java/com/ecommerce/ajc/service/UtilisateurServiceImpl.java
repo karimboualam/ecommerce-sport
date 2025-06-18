@@ -1,4 +1,3 @@
-// ✅ 15. UtilisateurService.java
 package com.ecommerce.ajc.service;
 
 import model.Utilisateur;
@@ -30,11 +29,9 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
     @Override
     public Utilisateur register(Utilisateur utilisateur) {
         utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
-        // ✅ Si aucun rôle n'est fourni, on attribue ROLE_CLIENT
         if (utilisateur.getRole() == null) {
             utilisateur.setRole(RoleEnum.ROLE_CLIENT);
         }
-
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -42,30 +39,30 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
     public String login(Utilisateur utilisateur) {
         Utilisateur existingUser = utilisateurRepository.findByEmail(utilisateur.getEmail());
         if (existingUser != null && passwordEncoder.matches(utilisateur.getPassword(), existingUser.getPassword())) {
-            System.out.println("🛡️ ROLE UTILISATEUR CONNECTÉ : " + existingUser.getRole());
             return jwtTokenUtil.generateToken(existingUser);
         }
         throw new RuntimeException("Invalid credentials");
     }
 
     @Override
-    public Utilisateur getUtilisateur(Long id) {
-        return utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utilisateur not found"));
+    public Utilisateur findByEmail(String email) {
+        return utilisateurRepository.findByEmail(email);
     }
 
     @Override
-    public Utilisateur updateUtilisateur(Long id, Utilisateur updatedUser) {
-        Utilisateur existing = getUtilisateur(id);
+    public Utilisateur updateUserByEmail(String email, Utilisateur updatedUser) {
+        Utilisateur existing = findByEmail(email);
         existing.setUsername(updatedUser.getUsername());
         existing.setAdresse(updatedUser.getAdresse());
-        // ⚠️ ne jamais changer le mot de passe ici sans vérification
+        existing.setPrenom(updatedUser.getPrenom());
+        existing.setNom(updatedUser.getNom());
         return utilisateurRepository.save(existing);
     }
 
     @Override
-    public void deleteUtilisateur(Long id) {
-        utilisateurRepository.deleteById(id);
+    public void deleteByEmail(String email) {
+        Utilisateur user = findByEmail(email);
+        utilisateurRepository.delete(user);
     }
 
     @Override
@@ -74,8 +71,6 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
         if (user == null) {
             throw new UsernameNotFoundException("Utilisateur introuvable avec l'email : " + email);
         }
-
-        // ✅ le rôle doit être converti en authority avec le préfixe ROLE_
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

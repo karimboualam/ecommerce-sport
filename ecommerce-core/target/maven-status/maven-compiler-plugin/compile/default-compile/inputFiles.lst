@@ -1,11 +1,13 @@
-C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Article.java
+C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\PanierItemRepository.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\security\RoleEnum.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\PanierItem.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\UtilisateurRepository.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\LigneCommande.java
+C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\PanierRepository.java
+C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Panier.java
+C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\ArticleRepository.java
+C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Article.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Commande.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Avis.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Utilisateur.java
 C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\CommandeRepository.java
-C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\model\Panier.java
-C:\AJC\modules\14- Projet -final\karim-dev\ecommerce-sport\ecommerce-core\src\main\java\repository\ArticleRepository.java

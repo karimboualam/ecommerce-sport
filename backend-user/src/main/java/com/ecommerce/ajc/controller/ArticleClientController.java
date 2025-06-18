@@ -1,9 +1,7 @@
 package com.ecommerce.ajc.controller;
 
-
-//import com.ecommerce.ajc.model.Article;
-import model.Article;
 import com.ecommerce.ajc.service.ArticleService;
+import model.Article;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,30 +18,41 @@ public class ArticleClientController {
         this.articleService = articleService;
     }
 
+    /**
+     * Récupérer tous les articles
+     */
     @GetMapping
-   @PreAuthorize("hasRole('CLIENT')") // 🔐 Sécurité supplémentaire côté méthode
-  //  @PreAuthorize("hasAuthority('ROLE_CLIENT') and !hasAuthority('ROLE_ADMIN')")
-
     public List<Article> getAllArticles() {
         return articleService.getAllArticles();
     }
 
+    /**
+     *  Récupérer un article par son ID
+     */
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('CLIENT')")
-    public Article getArticleById(@PathVariable Integer  id) {
+    public Article getArticleById(@PathVariable Integer id) {
         return articleService.getArticleById(id);
     }
 
+    /**
+     *  Filtrer les articles par catégorie
+     */
     @GetMapping("/categorie/{categorie}")
     public List<Article> findByCategorie(@PathVariable String categorie) {
         return articleService.findByCategorie(categorie);
     }
 
+    /**
+     *  Rechercher des articles par mot-clé (nom ou description)
+     */
     @GetMapping("/search")
     public List<Article> searchArticles(@RequestParam String keyword) {
         return articleService.searchArticles(keyword);
     }
 
+    /**
+     * Filtrage multiple (prix, marque, couleur)
+     */
     @GetMapping("/filter")
     public List<Article> filterArticles(
             @RequestParam(required = false) Double minPrice,
@@ -54,10 +63,10 @@ public class ArticleClientController {
         return articleService.filterArticles(minPrice, maxPrice, marque, couleur);
     }
 
+    /**
+     *  Afficher les articles en vedette (ex: top 5)
+     */
     @GetMapping("/featured")
-    @PreAuthorize("hasRole('CLIENT')")
-   // @PreAuthorize("hasAuthority('ROLE_CLIENT') and !hasAuthority('ROLE_ADMIN')")
-
     public List<Article> getFeaturedArticles() {
         return articleService.getFeaturedArticles();
     }

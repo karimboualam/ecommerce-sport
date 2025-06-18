@@ -1,4 +1,3 @@
-// ✅ 5. SecurityConfig.java
 package com.ecommerce.ajc.security;
 
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
+                // Autorise Swagger
+                .antMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v2/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                ).permitAll()
                .antMatchers("/api/auth/**").permitAll()
            //     .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")

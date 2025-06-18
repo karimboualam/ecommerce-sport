@@ -1,12 +1,14 @@
 package com.ecommerce.ajc.security;
 
 import io.jsonwebtoken.Claims;
+import model.Utilisateur;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import repository.UtilisateurRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -74,4 +76,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
+
+    public Utilisateur getUserFromToken(String token, UtilisateurRepository utilisateurRepository) {
+    //   String email = getUsernameFromToken(token.replace("Bearer ", ""));
+        String email = jwtTokenUtil.extractUsername(token.replace("Bearer ", ""));
+
+        return utilisateurRepository.findByEmail(email);
+    }
 }

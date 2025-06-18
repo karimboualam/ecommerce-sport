@@ -1,4 +1,5 @@
-package com.ecommerce.ajc.controller;
+// A SUPPRIMER
+// package com.ecommerce.ajc.controller;
 
 import model.Article;
 import com.ecommerce.ajc.service.ArticleService;
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/articles")
 public class ArticleAdminController {
-
+/*
     private final ArticleService articleService;
 
     public ArticleAdminController(ArticleService articleService) {
@@ -46,5 +47,5 @@ public class ArticleAdminController {
         return articleService.articleExists(id);
     }
 
-
+*/
 }

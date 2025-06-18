@@ -52,6 +52,15 @@ public class PanierServiceImpl implements PanierService {
         }
         return panierRepository.save(panier);
     }
+    @Override
+    public Panier updateQuantite(Utilisateur utilisateur, Long itemId, int quantite) {
+        Panier panier = getPanier(utilisateur);
+        panier.getItems().stream()
+                .filter(item -> item.getId().equals(itemId))
+                .findFirst()
+                .ifPresent(item -> item.setQuantite(quantite));
+        return panierRepository.save(panier);
+    }
 
     @Override
     public void removeFromPanier(Utilisateur utilisateur, Long itemId) {
@@ -59,4 +68,37 @@ public class PanierServiceImpl implements PanierService {
         panier.getItems().removeIf(item -> item.getId().equals(itemId));
         panierRepository.save(panier);
     }
+
+    @Override
+    public Panier applyPromoCode(Utilisateur utilisateur, String codePromo) {
+        Panier panier = getPanier(utilisateur);
+
+        double totalSansRemise = panier.getItems().stream()
+                .mapToDouble(item -> item.getPrixUnitaire() * item.getQuantite())
+                .sum();
+
+        double remise = 0;
+
+        // 💡 Exemple simple : fixe par code
+        switch (codePromo.toLowerCase()) {
+            case "welcome10":
+                remise = 10.0;
+                break;
+            case "freeship":
+                remise = 5.0;
+                break;
+            case "vip20":
+                remise = totalSansRemise * 0.20;
+                break;
+            default:
+                throw new RuntimeException("Code promo invalide");
+        }
+
+        panier.setCodePromo(codePromo);
+        panier.setRemise(remise);
+        panier.setTotal(totalSansRemise - remise);
+
+        return panierRepository.save(panier);
+    }
+
 }

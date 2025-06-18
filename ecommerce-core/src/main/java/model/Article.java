@@ -1,6 +1,5 @@
 package model;
 
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -25,6 +24,7 @@ public class Article {
 
     public Article() {}
 
+    // Getters & Setters
     public int getReference() { return reference; }
     public void setReference(int reference) { this.reference = reference; }
     public String getNom() { return nom; }
@@ -48,13 +48,12 @@ public class Article {
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
 
-    //
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Article)) return false;
         Article article = (Article) o;
-        return Objects.equals(reference, article.reference);
+        return reference == article.reference;
     }
 
     @Override
