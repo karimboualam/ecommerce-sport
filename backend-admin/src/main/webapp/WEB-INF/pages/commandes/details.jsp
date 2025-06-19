@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <p><strong>Client:</strong> ${commande.utilisateur.username} (${commande.utilisateur.email})</p>
                     <p><strong>Date de commande:</strong> <fmt:formatDate value="${commande.date}" pattern="dd/MM/yyyy à HH:mm:ss"/></p>
-                    <p><strong>Adresse de livraison:</strong> ${commande.adresseLivraison}</p>
+                    <p><strong>Adresse de livraison:</strong> ${commande.utilisateur.adresse}</p>
                     <p><strong>Montant Total:</strong> <strong class="text-primary"><fmt:formatNumber value="${commande.montant}" type="currency" currencySymbol="€"/></strong></p>
                 </div>
             </div>

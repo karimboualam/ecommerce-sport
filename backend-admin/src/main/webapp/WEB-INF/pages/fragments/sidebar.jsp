@@ -5,7 +5,7 @@
 <div class="sidebar">
     <div class="logo-details">
         <i class='bx bxl-magento icon'></i>
-        <div class="logo_name">E-Commerce</div>
+        <div class="logo_name">SportZ</div>
     </div>
     <ul class="nav-links">
         <li>
@@ -27,8 +27,8 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="${pageContext.request.contextPath}/admin/articles">Articles</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/articles">Liste</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/articles/new">Ajouter</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/articles">Liste des articles</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/articles/new">Ajouter article</a></li>
             </ul>
         </li>
         <li>
@@ -41,8 +41,8 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="${pageContext.request.contextPath}/admin/utilisateurs">Utilisateurs</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/utilisateurs">Liste</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/utilisateurs/new">Ajouter</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/utilisateurs">Liste des utilisateurs</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/utilisateurs/new">Ajouter utilisateur</a></li>
             </ul>
         </li>
         <li>
