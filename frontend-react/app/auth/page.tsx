@@ -176,9 +176,9 @@ export default function AuthPage() {
                 <p className="text-sm text-blue-800">
                   <strong>Compte de démonstration :</strong>
                   <br />
-                  Email: demo@sportzone.com
+                  Email: samina1@mail.com
                   <br />
-                  Mot de passe: demo123
+                  Mot de passe: 123456
                 </p>
               </div>
             )}

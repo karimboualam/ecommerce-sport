@@ -11,8 +11,8 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SportZone - Équipements Sportifs",
-  description: "Votre boutique en ligne pour tous vos équipements sportifs",
+  title: "SportZ - Équipements Sportifs pour AJC",
+  description: "Votre boutique en ligne pour tous vos équipements sportifs préférés par AJC",
     generator: 'v0.dev'
 }
 

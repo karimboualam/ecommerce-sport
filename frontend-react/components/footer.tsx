@@ -12,7 +12,7 @@ export default function Footer() {
               <div className="h-8 w-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-sm">SZ</span>
               </div>
-              <span className="font-bold text-xl">SportZone</span>
+              <span className="font-bold text-xl">SportZ</span>
             </div>
             <p className="text-gray-400 mb-4">
               Votre boutique en ligne spécialisée dans les équipements sportifs de qualité.
@@ -118,7 +118,7 @@ export default function Footer() {
         <hr className="border-gray-800 my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© {new Date().getFullYear()} SportZone. Tous droits réservés.</p>
+          <p className="text-gray-400 text-sm">© {new Date().getFullYear()} SportZ. Tous droits réservés.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <span className="text-gray-400 text-sm">Paiement sécurisé</span>
             <span className="text-gray-400 text-sm">Livraison gratuite dès 50€</span>

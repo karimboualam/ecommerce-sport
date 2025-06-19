@@ -1,4 +1,4 @@
-export const products = [
+/*export const products = [
   {
     id: 1,
     name: "Nike Air Zoom Pegasus 40",
@@ -162,3 +162,4 @@ export const products = [
     colors: ["Rouge/Noir", "Bleu/Blanc"],
   },
 ]
+*/

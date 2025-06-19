@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,60 +8,54 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Star } from "lucide-react"
 
-const featuredProducts = [
-  {
-    id: 1,
-    name: "Nike Air Zoom Pegasus 40",
-    price: 129.99,
-    originalPrice: 149.99,
-    image: "/images/nike-pegasus.jpg",
-    rating: 4.5,
-    reviews: 234,
-    category: "running",
-    isNew: true,
-  },
-  {
-    id: 2,
-    name: "Haltères Réglables 20kg",
-    price: 89.99,
-    image: "/images/dumbbells.jpg",
-    rating: 4.8,
-    reviews: 156,
-    category: "fitness",
-    isSale: true,
-  },
-  {
-    id: 3,
-    name: "Maillot PSG Domicile 2024",
-    price: 79.99,
-    image: "/images/psg-jersey.jpg",
-    rating: 4.3,
-    reviews: 89,
-    category: "football",
-    isNew: true,
-  },
-    {
-    id: 3,
-    name: "Maillot PSG Domicile 2024",
-    price: 79.99,
-    image: "/images/psg-jersey.jpg",
-    rating: 4.3,
-    reviews: 89,
-    category: "football",
-    isNew: true,
-  },
-  {
-    id: 5,
-    name: "Chaussures Basketball NIKE Air Jordan 1",
-    price: 99.99,
-    image: "https://m.media-amazon.com/images/I/51wr688oZML._AC_SX695_.jpg",
-    rating: 4.9,
-    reviews: 112,
-    category: "basketball",
-  },
-]
+interface Product {
+  id: number
+  name: string
+  price: number
+  originalPrice?: number
+  image: string
+  rating: number
+  reviews: number
+  category: string
+  isNew?: boolean
+  isSale?: boolean
+}
 
 export default function FeaturedProducts() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    fetch("http://localhost:8080/api/client/articles/featured", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors du chargement des produits vedettes")
+        return res.json()
+      })
+      .then((data) => {
+        const mapped = data.map((article: any) => ({
+          id: article.reference,
+          name: article.nom,
+          price: article.prix,
+          originalPrice: article.ancienPrix || null,
+          image: article.image?.startsWith("http") ? article.image : `/images/${article.image}`,
+          rating: article.note || 4.5,
+          reviews: article.avis || 25,
+          category: article.categorie,
+          isNew: article.nouveau || false,
+          isSale: article.promo || false,
+        }))
+        setProducts(mapped)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
+
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -68,7 +65,7 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
+          {products.map((product) => (
             <Card key={product.id} className="group hover:shadow-lg transition-shadow h-full">
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="relative">
