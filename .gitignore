@@ -14,11 +14,15 @@ backend-user/test-output/
 
 # === BACKEND ADMIN ===
 backend-admin/target/
+backend-admin/conf/
+backend-admin/work/
 backend-admin/.classpath
 backend-admin/.project
 backend-admin/.settings/
 backend-admin/logs/
 backend-admin/test-output/
+
+# === ECOMMERCE CORE ===
 ecommerce-core/target/
 
 # === GENERAL JAVA / MAVEN ===
