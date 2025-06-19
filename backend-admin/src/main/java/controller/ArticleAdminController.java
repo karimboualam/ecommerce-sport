@@ -48,7 +48,18 @@ public class ArticleAdminController {
 
         // Données pour les listes déroulantes
         List<String> categories = Arrays.asList("Running", "Fitness", "Football", "Basketball");
-        List<String> types = Arrays.asList("T-shirt", "Pantalon", "Baskets", "Montre", "Smartphone");
+        List<String> types = Arrays.asList(
+                "T-shirt",
+                "Short",
+                "Chaussures de sport",
+                "Montre connectée",
+                "Ballon",
+                "Haltères",
+                "Sac de sport",
+                "Machine de sport",
+                "Casquette",
+                "Accessoire d'entraînement"
+        );
         model.addAttribute("categories", categories);
         model.addAttribute("types", types);
 
