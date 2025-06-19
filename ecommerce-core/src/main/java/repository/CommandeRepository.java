@@ -15,4 +15,8 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     @Query("SELECT c FROM Commande c LEFT JOIN FETCH c.ligneCommandes WHERE c.id = :id")
     Optional<Commande> findByIdWithLignes(@Param("id") Long id);
+
+    @Query("SELECT c FROM Commande c LEFT JOIN FETCH c.ligneCommandes LEFT JOIN FETCH c.utilisateur")
+    List<Commande> findAllWithLignesEtUtilisateurs();
+
 }

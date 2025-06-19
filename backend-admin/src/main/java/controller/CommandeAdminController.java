@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CommandeService;
+import util.PdfExportUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,4 +68,23 @@ public class CommandeAdminController {
         commandeService.deleteById(id);
         return "redirect:/admin/commandes";
     }
+
+
+
+
+    // GENERER LE PDF
+    @GetMapping("/export/pdf")
+    public void exportPdf(HttpServletResponse response) {
+        try {
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=commandes.pdf");
+
+            List<Commande> commandes = commandeService.findAllWithLignesEtUtilisateurs();
+            PdfExportUtil.exportCommandes(commandes, response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de l'export PDF");
+        }
+    }
+
 }

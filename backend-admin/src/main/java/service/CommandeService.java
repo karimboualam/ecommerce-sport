@@ -53,4 +53,11 @@ public class CommandeService {
     public void deleteById(Long id) {
         commandeRepository.deleteById(id);
     }
+
+
+    @Transactional(readOnly = true)
+    public List<Commande> findAllWithLignesEtUtilisateurs() {
+        return commandeRepository.findAllWithLignesEtUtilisateurs();
+    }
+
 }
