@@ -10,7 +10,7 @@ import repository.UtilisateurRepository;
 
 @Controller
 public class TestController {
-
+/*
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
@@ -21,14 +21,14 @@ public class TestController {
     @GetMapping("/reset-password-for-admin") // URL facile à appeler
     @ResponseBody
     public String resetAdminPassword() {
-        Utilisateur admin = utilisateurRepository.findByEmail("tafrize.anlisaid@gmail.com");
+        Utilisateur admin = utilisateurRepository.findByEmail("admin2@mail.com");
 
         if (admin == null) {
             return "ERREUR : Utilisateur 'admin@site.com' non trouvé.";
         }
 
         // Le mot de passe que nous allons utiliser pour le test
-        String nouveauMotDePasseClair = "password123";
+        String nouveauMotDePasseClair = "123456";
 
         // On utilise le même encodeur que Spring Security pour générer le hash
         String nouveauMotDePasseHashe = passwordEncoder.encode(nouveauMotDePasseClair);
@@ -43,5 +43,5 @@ public class TestController {
         System.out.println("Nouveau hash en BDD: " + nouveauMotDePasseHashe);
 
         return "Mot de passe pour 'admin@site.com' réinitialisé à 'admin123'. Vous pouvez maintenant vous connecter.";
-    }
+    } */
 }

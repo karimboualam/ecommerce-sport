@@ -62,7 +62,7 @@
                 <div class="name-job">
                     <div class="profile_name"><sec:authentication property="principal.prenom"/></div>
                 </div>
-                <form action="<c:url value='/perform_logout'/>" method="post" id="logoutForm">
+                <form action="<c:url value='/logout'/>" method="post" id="logoutForm">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <i class='bx bx-log-out' onclick="document.getElementById('logoutForm').submit();" style="cursor: pointer;"></i>
                 </form>

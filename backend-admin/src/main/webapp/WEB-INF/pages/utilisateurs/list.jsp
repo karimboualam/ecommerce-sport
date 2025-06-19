@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Gestion des Utilisateurs</h1>
-        <a href="${pageContext.request.contextPath}/admin/utilisateurs/form" class="btn btn-primary">
+        <a href="${pageContext.request.contextPath}/admin/utilisateurs/new" class="btn btn-primary">
             Ajouter un utilisateur
         </a>
     </div>
@@ -40,7 +40,7 @@
                     <td>${user.email}</td>
                     <td><span class="badge ${user.role == 'ROLE_ADMIN' ? 'bg-danger' : 'bg-secondary'}">${user.role}</span></td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/utilisateurs/form?id=${user.id}" class="btn btn-sm btn-warning">Modifier</a>
+                        <a href="${pageContext.request.contextPath}/admin/utilisateurs/edit?id=${user.id}" class="btn btn-sm btn-warning">Modifier</a>
                         <a href="${pageContext.request.contextPath}/admin/utilisateurs/delete?id=${user.id}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
                     </td>
                 </tr>
