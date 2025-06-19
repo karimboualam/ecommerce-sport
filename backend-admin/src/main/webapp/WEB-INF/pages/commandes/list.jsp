@@ -16,7 +16,16 @@
             <li class="breadcrumb-item active" aria-current="page">Gestion des Commandes</li>
         </ol>
     </nav>
+
     <h1>Gestion des Commandes</h1>
+
+    <div class="text-end mb-3">
+        <a href="${pageContext.request.contextPath}/admin/commandes/export/pdf" class="btn btn-outline-danger">
+            📄 Exporter en PDF
+        </a>
+    </div>
+
+
     <table class="table table-hover table-bordered mt-4">
         <thead class="table-dark">
             <tr>
